@@ -11,9 +11,9 @@ export const Navbar = () => {
   }, [query]);
   return (
     <nav
-      className={`dark:backdrop-blur-md dark:bg-gray-900/70 min-h-12 h-auto sticky top-0 left-0 bg-white rounded-lg shadow-sm m-4`}
+      className={`dark:backdrop-blur-md dark:bg-gray-900/70 min-h-12 h-auto sticky top-0 left-0 bg-white rounded-lg shadow-sm m-2 md:m-4`}
     >
-      <div className="w-full mx-auto max-w-screen-xl md:flex md:items-center md:justify-between h-full flex flex-wrap items-center justify-between py-2">
+      <div className="w-full mx-auto max-w-screen-xl md:flex md:items-center md:justify-between h-full flex flex-wrap items-center justify-between py-2.5 pl-2 pr-1 md:px-2">
         <Link href="" className="flex items-center gap-1">
           <svg
             xmlns="http://www.w3.org/2000/svg"

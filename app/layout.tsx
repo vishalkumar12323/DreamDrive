@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "dream-drive / For users finding their dream vehicle",
+  title: "dream-drive / For users finding their dream car",
   description: "",
 };
 
