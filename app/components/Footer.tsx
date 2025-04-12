@@ -16,7 +16,7 @@ export const Footer = () => {
               href="#"
               className="hover:underline me-4 md:me-6 text-[12px] md:text-base"
             >
-              Code Link
+              Source Code
             </a>
           </li>
         </ul>

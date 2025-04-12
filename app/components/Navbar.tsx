@@ -1,19 +1,30 @@
 "use client";
 import Link from "next/link";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Car, Search } from "./icons";
 import { ThemeDropDown } from "./theme-dorpdown";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useDebouncedCallback } from "use-debounce";
 
 export const Navbar = () => {
   const [isExpended, setIsExpended] = useState(false);
-  const [query, setQuery] = useState("");
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
 
-  useEffect(() => {
-    console.log(query);
-  }, [query]);
+  const handleSearch = useDebouncedCallback((term: string) => {
+    const params = new URLSearchParams(searchParams);
+    params.set("page", "1");
+    if (term) {
+      params.set("query", term);
+    } else {
+      params.delete("query");
+    }
+    router.replace(`${pathname}?${params.toString()}`);
+  }, 300);
   return (
     <nav
-      className={`dark:backdrop-blur-md dark:bg-gradient-to-r dark:from-violet-950 dark:to-purple-950 min-h-12 h-auto sticky top-0 left-0 bg-gradient-to-r from-violet-500 to-purple-500 rounded-lg shadow-sm m-2 md:m-4`}
+      className={`dark:backdrop-blur-md dark:bg-gradient-to-r dark:from-violet-950 dark:to-purple-950 min-h-12 h-auto sticky top-0 left-0 bg-gradient-to-r from-violet-500 to-purple-500 rounded-lg shadow-sm m-2 md:m-4 z-50`}
     >
       <div className="w-full mx-auto max-w-screen-xl md:flex md:items-center md:justify-between h-full flex flex-wrap items-center justify-between py-2.5 pl-2 pr-1 md:px-2">
         <Link href="" className="flex items-center gap-1">
@@ -40,10 +51,10 @@ export const Navbar = () => {
               <Search width={1} height={1} />
             </div>
             <input
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
+              onChange={(e) => handleSearch(e.target.value)}
               type="text"
               id="search-navbar"
+              defaultValue={searchParams.get("query") || ""}
               className="block min-w-[30rem] w-full max-w-[30rem] px-2 py-3 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-purple-80 focus:ring-blue-500 focus:border-blue-500 dark:bg-purple-900 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Search with cars names..."
               autoComplete="off"
@@ -65,6 +76,8 @@ export const Navbar = () => {
             <input
               type="text"
               id="search-navbar"
+              onChange={(e) => handleSearch(e.target.value)}
+              defaultValue={searchParams.get("query") || ""}
               className="block w-full px-2 py-3 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-purple-900 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Search with cars names..."
               autoComplete="off"

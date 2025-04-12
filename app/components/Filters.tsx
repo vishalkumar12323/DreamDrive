@@ -1,25 +1,24 @@
 "use client";
 import { useEffect, useState } from "react";
 import { Check, UnCheck } from "./icons";
+import { useRouter, useSearchParams, useParams } from "next/navigation";
+import {
+  TCheckedFilters,
+  TFilterOption,
+  TOpenFilters,
+  TQuery,
+} from "@/app/types";
 
-type TBudget = string[];
-type TLocation = string[];
-type TOwner = string[];
-type TModel = string[];
-type TFuelType = string[];
-
-interface IQueryType {
-  budget: TBudget;
-  location: TLocation;
-  model: TModel;
-  owner: TOwner;
-  fuelType: TFuelType;
-}
-const filterOptions = [
+const filterOptions: TFilterOption[] = [
   {
     id: "budget",
-    type: "budget",
-    options: ["0 to 1500", "1500 to 3000", "3000 to 7000"],
+    type: "budget (lakh)",
+    options: [
+      "1.05 to 5.00",
+      "5.25 to 10.00",
+      "10.25 to 15.00",
+      "15.25 to 20.00",
+    ],
   },
   {
     id: "location",
@@ -38,52 +37,68 @@ const filterOptions = [
   },
   {
     id: "fuel-type",
-    type: "fuel type",
+    type: "fuelType",
     options: ["petrol", "diesel", "electric", "cng", "hybrid"],
   },
 ];
 
-export const Filters = ({ error = null }) => {
-  const [query, setQuery] = useState({});
-  const [openFilters, setOpenFilters] = useState({
+export const Filters = () => {
+  const urlParams = useParams();
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const params = new URLSearchParams(searchParams);
+
+  console.log(urlParams);
+  const [query, setQuery] = useState<TQuery>({});
+  const [openFilters, setOpenFilters] = useState<TOpenFilters>({
     budget: true,
     location: true,
     model: true,
     owner: true,
   });
-  const [checkedFilters, setCheckedFilters] = useState({});
+  const [checkedFilters, setCheckedFilters] = useState<TCheckedFilters>({});
 
-  const toggleFilterList = (listId) =>
+  const toggleFilterList = (listId: string) =>
     setOpenFilters((prev) => ({ ...prev, [listId]: !prev[listId] }));
 
-  const handleFilterUpdate = (option, type) => {
-    const key = type;
-    const isActive = query[key]?.includes(option);
+  const handleFilterUpdate = (option: string, type: string) => {
+    let key = type === "budget (lakh)" ? "budget" : type;
+    const isOptionActive = query[type]?.includes(option);
 
-    setCheckedFilters((prev) => ({
-      ...prev,
-      [option]: !prev[option],
-    }));
+    if (isOptionActive) {
+      setCheckedFilters((prev) => {
+        const updatedFilters = { ...prev };
+        delete updatedFilters[option];
+        return updatedFilters;
+      });
 
-    setQuery((prev) => ({
-      ...prev,
-      [key]: isActive
-        ? prev[key].filter((item) => item !== option)
-        : [...(prev[key] || []), option],
-    }));
+      setQuery((prev) => {
+        const updatedQuery = { ...prev };
+        delete updatedQuery[type];
+        return updatedQuery;
+      });
+    } else {
+      setCheckedFilters({ [option]: true });
+
+      setQuery({
+        [key]: option,
+      });
+    }
   };
 
-  const clearFilters = () => {
+  const clearFilters = (): void => {
     setCheckedFilters({});
     setQuery({});
   };
 
   useEffect(() => {
-    console.log(query);
+    Object.entries(query).forEach(([key, value]) => {
+      params.set(key, String(value));
+    });
+    router.replace(`?${params.toString()}`);
   }, [query]);
-
   return (
-    <aside className="py-6 px-3 mx-4 md:mx-0 md:px-0 w-full md:w-[25%] h-full flex justify-start items-start flex-col">
+    <aside className="md:sticky md:top-20 py-6 px-3 mx-4 md:mx-0 md:px-0 w-full md:w-[30%] h-full flex justify-start items-start flex-col">
       <div className="w-full p-3 bg-gradient-to-r from-violet-500 to-purple-500 dark:bg-gradient-to-r dark:from-violet-950 dark:to-purple-950 rounded-lg text-slate-100 dark:text-white">
         <div className="mb-4 w-full flex justify-between items-center">
           <h2 className=" text-[16px] md:text-xl font-bold uppercase">
@@ -134,11 +149,6 @@ export const Filters = ({ error = null }) => {
                   >
                     {checkedFilters[option] ? <Check /> : <UnCheck />}
                     <span className="hover:font-medium">{option}</span>
-                    {/* {filter.type === "rating" && (
-                      <span className="capitalize text-[13px] hover:font-medium">
-                        star
-                      </span>
-                    )} */}
                   </li>
                 ))}
               </ul>
