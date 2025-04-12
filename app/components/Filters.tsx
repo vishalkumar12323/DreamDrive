@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Check, UnCheck } from "./icons";
 import { useRouter, useSearchParams, useParams } from "next/navigation";
 import {
@@ -46,7 +46,10 @@ export const Filters = () => {
   const urlParams = useParams();
   const router = useRouter();
   const searchParams = useSearchParams();
-  const params = new URLSearchParams(searchParams);
+  const params = useMemo(
+    () => new URLSearchParams(searchParams),
+    [searchParams]
+  );
 
   console.log(urlParams);
   const [query, setQuery] = useState<TQuery>({});
@@ -62,7 +65,7 @@ export const Filters = () => {
     setOpenFilters((prev) => ({ ...prev, [listId]: !prev[listId] }));
 
   const handleFilterUpdate = (option: string, type: string) => {
-    let key = type === "budget (lakh)" ? "budget" : type;
+    const key = type === "budget (lakh)" ? "budget" : type;
     const isOptionActive = query[type]?.includes(option);
 
     if (isOptionActive) {
@@ -89,6 +92,7 @@ export const Filters = () => {
   const clearFilters = (): void => {
     setCheckedFilters({});
     setQuery({});
+    router.refresh();
   };
 
   useEffect(() => {
@@ -96,9 +100,9 @@ export const Filters = () => {
       params.set(key, String(value));
     });
     router.replace(`?${params.toString()}`);
-  }, [query]);
+  }, [query, params, router, setCheckedFilters, setQuery]);
   return (
-    <aside className="md:sticky md:top-20 py-6 md:mx-0 md:px-0 w-full md:w-[30%] h-full flex justify-start items-start flex-col">
+    <aside className="md:sticky md:top-20 py-3 md:py-6 md:mx-0 md:px-0 w-full md:w-[30%] h-full flex justify-start items-start flex-col">
       <div className="w-full p-3 bg-gradient-to-r from-violet-500 to-purple-500 dark:bg-gradient-to-r dark:from-violet-950 dark:to-purple-950 rounded-lg text-slate-100 dark:text-white">
         <div className="mb-4 w-full flex justify-between items-center">
           <h2 className=" text-[16px] md:text-xl font-bold uppercase">

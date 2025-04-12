@@ -1,10 +1,10 @@
 import { Container } from "./components/Container";
-import { Filters } from "./components/Filters";
 import { Card } from "./components/Card";
 import { CardHeader } from "./components/CardHeader";
 import { Pagination } from "./components/Pagination";
 import { Suspense } from "react";
 import { Loading } from "./components/Loading";
+import { Filters } from "./components/Filters";
 
 const Page = async ({
   searchParams,
@@ -21,8 +21,11 @@ const Page = async ({
 
   return (
     <>
-      <main className="max-w-screen-xl w-full min-h-screen mx-auto mb-4 flex flex-col md:flex-row gap-2 md:gap-6  p-4 lg:p-1">
-        <Filters />
+      <main className="max-w-screen-xl w-full min-h-screen mx-auto mb-4 flex flex-col md:flex-row gap-2 md:gap-6  p-2 md:p-4 lg:p-1">
+        <Suspense fallback={<Loading />}>
+          <Filters />
+        </Suspense>
+
         <Container>
           <CardHeader />
           <Suspense fallback={<Loading />}>

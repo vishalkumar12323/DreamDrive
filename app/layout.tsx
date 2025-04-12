@@ -4,6 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "./components/theme-provider";
 import { Navbar } from "./components/Navbar";
 import { Footer } from "./components/Footer";
+import { Suspense } from "react";
 
 const poppins = Poppins({
   weight: "500",
@@ -23,7 +24,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${poppins.className} antialiased dark:text-white text-slate-900 min-h-screen bg-gradient-to-r from-violet-50 to-purple-100 dark:bg-gradient-to-r dark:from-[#13042e] dark:via-[#12083a] dark:to-[#1f1626] flex flex-col`}
+        className={`${poppins.className} w-full antialiased dark:text-white text-slate-900 min-h-screen bg-gradient-to-r from-violet-50 to-purple-100 dark:bg-gradient-to-r dark:from-[#13042e] dark:via-[#12083a] dark:to-[#1f1626] flex flex-col`}
         suppressHydrationWarning
       >
         <ThemeProvider
@@ -32,7 +33,9 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <Navbar />
+          <Suspense>
+            <Navbar />
+          </Suspense>
           {children}
           <Footer />
         </ThemeProvider>

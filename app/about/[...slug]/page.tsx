@@ -7,6 +7,7 @@ import {
   TransmissionIcon,
   UserIcon,
 } from "@/app/components/icons";
+import Image from "next/image";
 
 const AboutPage = async ({
   params,
@@ -26,7 +27,9 @@ const AboutPage = async ({
             data.images
               ?.split(",")
               .map((img) => (
-                <img
+                <Image
+                  width={400}
+                  height={400}
                   key={img + data.name}
                   src={img}
                   alt={data.name}

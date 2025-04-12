@@ -1,7 +1,5 @@
 "use client";
-import Link from "next/link";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useEffect } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export const Pagination = ({ totalPage }: { totalPage: number }) => {
   const searchParams = useSearchParams();
@@ -32,6 +30,7 @@ export const Pagination = ({ totalPage }: { totalPage: number }) => {
         {[...Array(totalPage).fill(0)].map((_, idx) => {
           return (
             <button
+              key={idx}
               disabled={Number(searchParams.get("page")) === idx + 1}
               onClick={() => handlePageChange(idx + 1)}
               className={`${
