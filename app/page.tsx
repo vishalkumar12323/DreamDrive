@@ -21,7 +21,7 @@ const Page = async ({
 
   return (
     <>
-      <main className="max-w-screen-xl w-full min-h-screen mx-auto mb-4 flex gap-4 md:gap-6  p-4 lg:p-1">
+      <main className="max-w-screen-xl w-full min-h-screen mx-auto mb-4 flex flex-col md:flex-row gap-2 md:gap-6  p-4 lg:p-1">
         <Filters />
         <Container>
           <CardHeader />

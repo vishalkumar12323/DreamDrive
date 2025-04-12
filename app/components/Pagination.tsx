@@ -16,7 +16,7 @@ export const Pagination = ({ totalPage }: { totalPage: number }) => {
   };
 
   return (
-    <nav aria-label="Page navigation example">
+    <nav aria-label="Page navigation example" className="text-white">
       <div className="inline-flex -space-x-px text-base h-10 gap-2">
         <button
           onClick={() => handlePageChange(currentPage - 1)}

@@ -1,6 +1,5 @@
 import React from "react";
 import { getCarDataById } from "@/app/handlers";
-import Link from "next/link";
 import {
   EngineIcon,
   FuelIcon,
@@ -18,7 +17,7 @@ const AboutPage = async ({
 
   const data = await getCarDataById(slug[0]);
   return (
-    <div className="max-w-screen-xl w-full mx-auto bg-gradient-to-r from-violet-500 to-purple-500 dark:bg-gradient-to-r dark:from-violet-950 dark:to-purple-950 rounded">
+    <div className="max-w-screen-xl mx-2 w-full md:mx-auto bg-gradient-to-r from-violet-500 to-purple-500 dark:bg-gradient-to-r dark:from-violet-950 dark:to-purple-950 rounded text-white">
       <div className="flex flex-col gap-3 p-4">
         <div className="text-xl md:text-2xl">{data.name}</div>
 
@@ -37,8 +36,8 @@ const AboutPage = async ({
         </div>
 
         <div>
-          <div className="w-full flex justify-between">
-            <div className="w-[550px]">
+          <div className="w-full flex flex-col md:flex-row justify-between">
+            <div className="w-[450px] md:w-[550px]">
               <div className="max-w-[75%] flex flex-col gap-3 mt-4">
                 <div className="flex justify-between items-center">
                   <div className="flex gap-3">
@@ -87,7 +86,7 @@ const AboutPage = async ({
                 </div>
               </div>
             </div>
-            <div className="flex items-end w-fit">
+            <div className="flex items-end w-fit mt-4 md:mt-0">
               <button className="w-fit px-4 py-2 border border-purple-800 rounded shadow-md hover:bg-slate-900 transition-colors">
                 Meet the sheller
               </button>

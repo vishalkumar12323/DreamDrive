@@ -22,7 +22,7 @@ export const Card = async ({ queryString }: { queryString: string }) => {
               key={d.id}
               className=" w-full min-h-[230px] bg-gradient-to-r from-violet-500 to-purple-500 dark:bg-gradient-to-r dark:from-violet-950 dark:to-purple-950 rounded text-white"
             >
-              <div className="py-4 px-2 flex gap-4">
+              <div className="py-4 md:px-2 flex gap-4">
                 <div className="overflow-hidden rounded w-[250px]">
                   <img
                     src={d.images.split(",")[0] || ""}
@@ -30,8 +30,8 @@ export const Card = async ({ queryString }: { queryString: string }) => {
                     className="max-w-[250px] max-h-[200px] rounded hover:scale-105 brightness-90 duration-200 hover:filter hover:brightness-110 hover:saturate-150"
                   />
                 </div>
-                <div className="w-full flex justify-between">
-                  <div className="w-[550px]">
+                <div className="w-full flex flex-col md:flex-row justify-between">
+                  <div className="w-[450px] md:w-[550px]">
                     <div className="text-xl md:text-2xl">{d.name}</div>
                     <div className="max-w-[75%] flex flex-col gap-3 mt-4">
                       <div className="flex justify-between items-center">
