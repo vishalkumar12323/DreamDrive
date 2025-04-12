@@ -1,3 +1,5 @@
+import Link from "next/link";
+import { getCarData } from "../handlers";
 import {
   MoneyIcon,
   UserIcon,
@@ -7,8 +9,9 @@ import {
 } from "./icons";
 
 // import Image from "next/image";
-import { CarDataType } from "@/app/types";
-export const Card = ({ data }: { data?: CarDataType }) => {
+export const Card = async ({ queryString }: { queryString: string }) => {
+  const data = await getCarData(queryString);
+
   return (
     <>
       {data &&
@@ -17,7 +20,7 @@ export const Card = ({ data }: { data?: CarDataType }) => {
           return (
             <div
               key={d.id}
-              className=" w-full min-h-[230px] bg-gradient-to-r from-violet-500 to-purple-500 dark:bg-gradient-to-r dark:from-violet-950 dark:to-purple-950 rounded"
+              className=" w-full min-h-[230px] bg-gradient-to-r from-violet-500 to-purple-500 dark:bg-gradient-to-r dark:from-violet-950 dark:to-purple-950 rounded text-white"
             >
               <div className="py-4 px-2 flex gap-4">
                 <div className="overflow-hidden rounded w-[250px]">
@@ -72,16 +75,19 @@ export const Card = ({ data }: { data?: CarDataType }) => {
                           <span>Price:</span>
                           <div className="flex gap-[1px] items-center">
                             <MoneyIcon />
-                            {d.price}
+                            {d.price} lakh
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
                   <div className="flex items-end w-fit">
-                    <button className="w-fit px-4 py-2 border border-purple-800 rounded shadow-md hover:bg-slate-900 transition-colors">
+                    <Link
+                      href={`/about/${d.id}/${d.name}`}
+                      className="w-fit px-4 py-2 border border-purple-800 rounded shadow-md hover:bg-slate-900 transition-colors"
+                    >
                       Get Details
-                    </button>
+                    </Link>
                   </div>
                 </div>
               </div>

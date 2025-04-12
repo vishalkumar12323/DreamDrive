@@ -32,8 +32,13 @@ export const Pagination = ({ totalPage }: { totalPage: number }) => {
         {[...Array(totalPage).fill(0)].map((_, idx) => {
           return (
             <button
+              disabled={Number(searchParams.get("page")) === idx + 1}
               onClick={() => handlePageChange(idx + 1)}
-              className="flex items-center justify-center px-4 h-10 ms-0 leading-tight bg-gradient-to-r from-violet-500 to-purple-500 dark:bg-gradient-to-r dark:from-violet-950 dark:to-purple-950"
+              className={`${
+                Number(searchParams.get("page")) === idx + 1
+                  ? "cursor-not-allowed"
+                  : "cursor-pointer"
+              } flex items-center justify-center px-4 h-10 ms-0 leading-tight bg-gradient-to-r from-violet-500 to-purple-500 dark:bg-gradient-to-r dark:from-violet-950 dark:to-purple-950`}
             >
               {idx + 1}
             </button>

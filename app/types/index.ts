@@ -9,7 +9,7 @@ export type CarDataType = {
   price: number;
   images: string;
   createdAt: Date;
-}[];
+};
 
 export type TFilterOption = {
   id: string;

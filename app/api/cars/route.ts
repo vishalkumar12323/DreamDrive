@@ -22,7 +22,6 @@ export const GET = async (req: NextRequest) => {
         .map((price) => Number(price.trim()))
     : [undefined, undefined];
 
-  console.log(model);
   try {
     const cars = await prisma.car.findMany({
       where: {
