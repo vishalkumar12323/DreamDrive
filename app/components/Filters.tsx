@@ -100,7 +100,7 @@ export const Filters = () => {
       params.set(key, String(value));
     });
     router.replace(`?${params.toString()}`);
-  }, [query, params, router, setCheckedFilters, setQuery]);
+  }, [query, params, router]);
   return (
     <aside className="md:sticky md:top-20 py-3 md:py-6 md:mx-0 md:px-0 w-full md:w-[30%] h-full flex justify-start items-start flex-col">
       <div className="w-full p-3 bg-gradient-to-r from-violet-500 to-purple-500 dark:bg-gradient-to-r dark:from-violet-950 dark:to-purple-950 rounded-lg text-slate-100 dark:text-white">

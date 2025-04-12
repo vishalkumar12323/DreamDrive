@@ -1,6 +1,7 @@
 import { CarDataType } from "@/app/types";
 
-const bash_url = "http://localhost:3000/api";
+const bash_url = process.env.NEXT_PUBLIC_API_BASE_URL;
+
 export const getCarData = async (
   queryParams: string
 ): Promise<CarDataType[]> => {

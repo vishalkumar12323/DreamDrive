@@ -9,7 +9,6 @@ import {
 } from "./icons";
 import Image from "next/image";
 
-// import Image from "next/image";
 export const Card = async ({ queryString }: { queryString: string }) => {
   const data = await getCarData(queryString);
 
