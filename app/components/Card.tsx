@@ -14,8 +14,7 @@ export const Card = async ({ queryString }: { queryString: string }) => {
 
   return (
     <>
-      {data &&
-        data.length > 0 &&
+      {data && data.length > 0 ? (
         data.map((d) => {
           return (
             <div
@@ -95,7 +94,14 @@ export const Card = async ({ queryString }: { queryString: string }) => {
               </div>
             </div>
           );
-        })}
+        })
+      ) : (
+        <>
+          <div className="flex justify-center items-center min-h-screen">
+            No data found, Search with other words.
+          </div>
+        </>
+      )}
     </>
   );
 };
