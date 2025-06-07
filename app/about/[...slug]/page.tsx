@@ -6,8 +6,9 @@ import {
   MoneyIcon,
   TransmissionIcon,
   UserIcon,
-} from "@/app/components/icons";
+} from "@/components/icons";
 import Image from "next/image";
+import { Button } from "@/components/ui/elements/button";
 
 const AboutPage = async ({
   params,
@@ -18,7 +19,7 @@ const AboutPage = async ({
 
   const data = await getCarDataById(slug[0]);
   return (
-    <div className="max-w-screen-xl mx-2 w-full md:mx-auto bg-gradient-to-r from-violet-500 to-purple-500 dark:bg-gradient-to-r dark:from-violet-950 dark:to-purple-950 rounded text-white">
+    <div className="max-w-screen-xl mx-2 w-full md:mx-auto bg-white/10 dark:bg-slate-900/10 backdrop-blur-md backdrop-filter text-slate-900 dark:text-white border border-gray-300 dark:border-violet-900/60 rounded-md shadow-md mt-2 md:mt-8">
       <div className="flex flex-col gap-3 p-4">
         <div className="text-xl md:text-2xl">{data.name}</div>
 
@@ -90,9 +91,9 @@ const AboutPage = async ({
               </div>
             </div>
             <div className="flex items-end w-fit mt-4 md:mt-0">
-              <button className="w-fit px-4 py-2 border border-purple-800 rounded shadow-md hover:bg-slate-900 transition-colors">
+              <Button variant={"outline"} className="w-fit px-4 py-2">
                 Meet the sheller
-              </button>
+              </Button>
             </div>
           </div>
         </div>

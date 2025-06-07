@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useMemo, useState } from "react";
-import { Check, UnCheck } from "./icons";
-import { useRouter, useSearchParams, useParams } from "next/navigation";
+import { Check, UnCheck } from "@/components/icons";
+import { useRouter, useSearchParams } from "next/navigation";
 import {
   TCheckedFilters,
   TFilterOption,
@@ -43,7 +43,6 @@ const filterOptions: TFilterOption[] = [
 ];
 
 export const Filters = () => {
-  const urlParams = useParams();
   const router = useRouter();
   const searchParams = useSearchParams();
   const params = useMemo(
@@ -51,7 +50,6 @@ export const Filters = () => {
     [searchParams]
   );
 
-  console.log(urlParams);
   const [query, setQuery] = useState<TQuery>({});
   const [openFilters, setOpenFilters] = useState<TOpenFilters>({
     budget: true,
@@ -103,7 +101,7 @@ export const Filters = () => {
   }, [query, params, router]);
   return (
     <aside className="md:sticky md:top-20 py-3 md:py-6 md:mx-0 md:px-0 w-full md:w-[30%] h-full flex justify-start items-start flex-col">
-      <div className="w-full p-3 bg-gradient-to-r from-violet-500 to-purple-500 dark:bg-gradient-to-r dark:from-violet-950 dark:to-purple-950 rounded-lg text-slate-100 dark:text-white">
+      <div className="w-full p-3 bg-white/10 dark:bg-slate-900/40 backdrop-blur-md backdrop-filter text-slate-900 dark:text-white border border-gray-300 shadow-md dark:border-violet-900/60 rounded-md">
         <div className="mb-4 w-full flex justify-between items-center">
           <h2 className=" text-[16px] md:text-xl font-bold uppercase">
             Filters
@@ -128,9 +126,8 @@ export const Filters = () => {
                   width="18"
                   height="18"
                   fill="currentColor"
-                  className={`bi bi-caret-right transform ${
-                    openFilters[filter.id] ? "rotate-90" : "rotate-0"
-                  }  transition-transform z-0 text-slate-100 dark:text-white`}
+                  className={`bi bi-caret-right transform ${openFilters[filter.id] ? "rotate-90" : "rotate-0"
+                    }  transition-transform z-0 text-gray-700 dark:text-white`}
                   viewBox="0 0 16 16"
                 >
                   <path d="M6 12.796V3.204L11.481 8zm.659.753 5.48-4.796a1 1 0 0 0 0-1.506L6.66 2.451C6.011 1.885 5 2.345 5 3.204v9.592a1 1 0 0 0 1.659.753" />

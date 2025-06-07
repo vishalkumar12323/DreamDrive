@@ -1,10 +1,11 @@
-import { Container } from "./components/Container";
-import { Card } from "./components/Card";
-import { CardHeader } from "./components/CardHeader";
-import { Pagination } from "./components/Pagination";
+import { Container } from "@/components/layout/Container";
+import { Card } from "@/components/cards/Card";
+import { CardHeader } from "@/components/cards/CardHeader";
+import { Pagination } from "@/components/features/Pagination";
 import { Suspense } from "react";
-import { Loading } from "./components/Loading";
-import { Filters } from "./components/Filters";
+import { Loading } from "@/components/layout/Loading";
+import { Filters } from "@/components/features/Filters";
+import { getCarData } from "@/app/handlers";
 
 const Page = async ({
   searchParams,
@@ -16,8 +17,9 @@ const Page = async ({
     Object.entries(params).reduce((acc, [key, val]) => {
       acc[key] = Array.isArray(val) ? val.join(",") : val || "";
       return acc;
-    }, {} as Record<string, string>)
-  ).toString();
+    }, {} as Record<string, string>)).toString();
+  const data = await getCarData(queryString);
+  const view = Array.isArray(params.view) ? params.view[0] : params.view || "list";
 
   return (
     <>
@@ -29,9 +31,13 @@ const Page = async ({
         <Container>
           <CardHeader />
           <Suspense fallback={<Loading />}>
-            <Card queryString={queryString} />
+            <Card data={data} view={view} />
           </Suspense>
-          <Pagination totalPage={3} />
+          {
+            data && data.length > 0 && (
+              <Pagination totalPage={3} />
+            )
+          }
         </Container>
       </main>
     </>

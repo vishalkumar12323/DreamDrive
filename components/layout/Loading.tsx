@@ -1,5 +1,5 @@
 import React from "react";
-import { Spinner } from "./icons";
+import { Spinner } from "@/components/icons";
 
 export const Loading = () => {
   return (

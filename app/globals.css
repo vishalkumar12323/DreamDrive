@@ -1,3 +1,155 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  --background: 0 0% 100%;
+  --foreground: 224 71.4% 4.1%;
+  --primary: 220.9 39.3% 11%;
+  --primary-foreground: 210 20% 98%;
+  --secondary: 220 14.3% 95.9%;
+  --secondary-foreground: 220.9 39.3% 11%;
+  --muted: 220 14.3% 95.9%;
+  --muted-foreground: 220 8.9% 46.1%;
+  --accent: 220 14.3% 95.9%;
+  --accent-foreground: 220.9 39.3% 11%;
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 210 20% 98%;
+  --border: 220 13% 91%;
+  --input: 220 13% 91%;
+  --ring: 224 71.4% 4.1%;
+  --radius: 0.5rem;
+}
+
+.dark {
+  --background: 224 71.4% 4.1%;
+  --foreground: 210 20% 98%;
+  --card: 224 71.4% 4.1%;
+  --card-foreground: 210 20% 98%;
+  --popover: 224 71.4% 4.1%;
+  --popover-foreground: 210 20% 98%;
+  --primary: 210 20% 98%;
+  --primary-foreground: 220.9 39.3% 11%;
+  --secondary: 215 27.9% 16.9%;
+  --secondary-foreground: 210 20% 98%;
+  --muted: 215 27.9% 16.9%;
+  --muted-foreground: 217.9 10.6% 64.9%;
+  --accent: 215 27.9% 16.9%;
+  --accent-foreground: 210 20% 98%;
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 210 20% 98%;
+  --border: 215 27.9% 16.9%;
+  --input: 215 27.9% 16.9%;
+  --ring: 216 12.2% 83.9%;
+}
+
+/* Modern background with clip-path shapes */
+.bg-shapes {
+  position: relative;
+  overflow-x: hidden;
+  isolation: isolate;
+}
+
+.bg-shapes::before,
+.bg-shapes::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+.bg-shapes::before {
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 calc(100% - 15vw));
+  background: linear-gradient(
+    130deg,
+    rgba(250, 139, 215, 0.21),
+    rgba(246, 92, 146, 0.207)
+  );
+  animation: shapeMove 15s infinite alternate ease-in-out;
+}
+
+.bg-shapes::after {
+  clip-path: polygon(0 0, 100% calc(0% + 15vw), 100% 100%, 0% 100%);
+  background: linear-gradient(
+    130deg,
+    rgba(246, 92, 246, 0.281),
+    rgba(250, 139, 206, 0.212)
+  );
+  animation: shapeMove 20s infinite alternate-reverse ease-in-out;
+}
+
+/* Dark theme shapes */
+.dark .bg-shapes::before {
+  background: linear-gradient(
+    130deg,
+    rgba(246, 92, 246, 0.11),
+    rgba(250, 139, 206, 0.09)
+  );
+}
+
+.dark .bg-shapes::after {
+  background: linear-gradient(
+    130deg,
+    rgba(67, 56, 202, 0.15),
+    rgba(88, 28, 135, 0.15)
+  );
+}
+
+/* Decorative circles */
+.bg-circle {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.1;
+  z-index: -1;
+}
+
+.bg-circle-1 {
+  width: 50vw;
+  height: 50vw;
+  top: -25vw;
+  left: -25vw;
+  background: radial-gradient(
+    circle,
+    rgba(139, 92, 246, 0.3),
+    rgba(167, 139, 250, 0.1)
+  );
+}
+
+.bg-circle-2 {
+  width: 40vw;
+  height: 40vw;
+  bottom: -20vw;
+  right: -20vw;
+  background: radial-gradient(
+    circle,
+    rgba(167, 139, 250, 0.3),
+    rgba(139, 92, 246, 0.1)
+  );
+}
+
+.dark .bg-circle-1 {
+  background: radial-gradient(
+    circle,
+    rgba(88, 28, 135, 0.2),
+    rgba(67, 56, 202, 0.1)
+  );
+}
+
+.dark .bg-circle-2 {
+  background: radial-gradient(
+    circle,
+    rgba(67, 56, 202, 0.2),
+    rgba(88, 28, 135, 0.1)
+  );
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}

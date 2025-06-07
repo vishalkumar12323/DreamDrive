@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
-import { ThemeProvider } from "./components/theme-provider";
-import { Navbar } from "./components/Navbar";
-import { Footer } from "./components/Footer";
+import { ThemeProvider } from "@/components/theme/theme-provider";
+import { Navbar } from "@/components/navigation/Navbar";
+import { Footer } from "@/components/navigation/Footer";
 import { Suspense } from "react";
 
 const poppins = Poppins({
@@ -24,9 +24,12 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${poppins.className} w-full antialiased dark:text-white text-slate-900 min-h-screen bg-gradient-to-r from-violet-50 to-purple-100 dark:bg-gradient-to-r dark:from-[#13042e] dark:via-[#12083a] dark:to-[#1f1626] flex flex-col`}
+        className={`${poppins.className} w-full antialiased bg-shapes min-h-screen flex flex-col relative`}
         suppressHydrationWarning
       >
+        <div className="bg-circle bg-circle-1" />
+        <div className="bg-circle bg-circle-2" />
+
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
@@ -36,7 +39,7 @@ export default function RootLayout({
           <Suspense>
             <Navbar />
           </Suspense>
-          {children}
+          <main className="flex-grow">{children}</main>
           <Footer />
         </ThemeProvider>
       </body>

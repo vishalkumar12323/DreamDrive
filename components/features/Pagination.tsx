@@ -1,5 +1,6 @@
 "use client";
 import { useRouter, useSearchParams } from "next/navigation";
+import { Button } from "@/components/ui/elements/button"
 
 export const Pagination = ({ totalPage }: { totalPage: number }) => {
   const searchParams = useSearchParams();
@@ -16,42 +17,42 @@ export const Pagination = ({ totalPage }: { totalPage: number }) => {
   return (
     <nav aria-label="Page navigation example" className="text-white">
       <div className="inline-flex -space-x-px text-base h-10 gap-2">
-        <button
+        <Button
+          variant={"outline"}
           onClick={() => handlePageChange(currentPage - 1)}
           disabled={currentPage === 1}
-          className={`${
-            currentPage === 1
-              ? "cursor-not-allowed bg-gray-600"
-              : "cursor-pointer"
-          } flex items-center justify-center px-4 h-10 ms-0 leading-tight bg-gradient-to-r from-violet-500 to-purple-500 dark:bg-gradient-to-r dark:from-violet-950 dark:to-purple-950`}
+          className={`${currentPage === 1
+            ? "cursor-not-allowed bg-gray-600"
+            : "cursor-pointer"
+            } flex items-center justify-center px-4 h-10 ms-0 leading-tight text-black dark:text-white`}
         >
           Previous
-        </button>
+        </Button>
         {[...Array(totalPage).fill(0)].map((_, idx) => {
           return (
-            <button
+            <Button
+              variant={"outline"}
               key={idx}
               disabled={Number(searchParams.get("page")) === idx + 1}
               onClick={() => handlePageChange(idx + 1)}
-              className={`${
-                Number(searchParams.get("page")) === idx + 1
-                  ? "cursor-not-allowed"
-                  : "cursor-pointer"
-              } flex items-center justify-center px-4 h-10 ms-0 leading-tight bg-gradient-to-r from-violet-500 to-purple-500 dark:bg-gradient-to-r dark:from-violet-950 dark:to-purple-950`}
+              className={`${Number(searchParams.get("page")) === idx + 1
+                ? "cursor-not-allowed"
+                : "cursor-pointer"
+                } flex items-center justify-center px-4 h-10 ms-0 leading-tight text-black dark:text-white`}
             >
               {idx + 1}
-            </button>
+            </Button>
           );
         })}
-        <button
+        <Button
+          variant={"outline"}
           onClick={() => handlePageChange(currentPage + 1)}
           disabled={currentPage === 1}
-          className={`${
-            currentPage === totalPage ? "cursor-not-allowed" : "cursor-pointer"
-          } flex items-center justify-center px-4 h-10 ms-0 leading-tight bg-gradient-to-r from-violet-500 to-purple-500 dark:bg-gradient-to-r dark:from-violet-950 dark:to-purple-950`}
+          className={`${currentPage === totalPage ? "cursor-not-allowed" : "cursor-pointer"
+            } flex items-center justify-center px-4 h-10 ms-0 leading-tight text-black dark:text-white`}
         >
           Next
-        </button>
+        </Button>
       </div>
     </nav>
   );
